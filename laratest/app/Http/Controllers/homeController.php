@@ -47,9 +47,10 @@ class homeController extends Controller
     	return view('home.stdlist')->with('students', $students);
     }
 
-	public function details(){
+	public function details($id){
     	
-    	//return view('home.stdlist');
+    	$student = $this->findStudentById($id);
+		return view('home.details')->with('student',$student[0]);
     }
 
     public function create(){
