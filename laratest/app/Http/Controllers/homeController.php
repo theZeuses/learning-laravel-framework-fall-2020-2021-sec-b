@@ -30,7 +30,17 @@ class homeController extends Controller
     	return $v;*/
 
     	return view('home.index');
-    }
+	}
+	
+	private $studentList = [
+		['id'=> 1, 'name'=> 'alamin', 'cgpa'=>1.2, 'email'=> 'alamin@aiub.edu'],
+		['id'=> 2, 'name'=> 'CYZ', 'cgpa'=>2.2, 'email'=> 'CYZ@aiub.edu'],
+		['id'=> 3, 'name'=> 'XYZ', 'cgpa'=>3.2, 'email'=> 'XYZ@aiub.edu'],
+		['id'=> 4, 'name'=> 'ABC', 'cgpa'=>3.4, 'email'=> 'ABC@aiub.edu'],
+		['id'=> 5, 'name'=> 'PQE', 'cgpa'=>3.6, 'email'=> 'PQE@aiub.edu'],
+		['id'=> 6, 'name'=> 'PQR', 'cgpa'=>4, 'email'=> 'PQR@aiub.edu'],
+		['id'=> 7, 'name'=> 'asd', 'cgpa'=>2.5, 'email'=> 'asd@aiub.edu']
+	];
 
     public function stdlist(){
     	$students = $this->getStudentlist();
@@ -44,12 +54,19 @@ class homeController extends Controller
 
     public function create(){
     
-    	//return view('home.create');
+    	return view('home.create');
     }
 
-    public function insert(){
-    
-    	//return view('home.create');
+    public function insert(Request $req){
+		
+		if(strlen($req->name) != 0 && strlen($req->cgpa) != 0 && strlen($req->email) != 0){
+			$students = $this->getStudentlist();
+			array_push($students, ['id' => count($students)+1, 'name' => $req->name, 'cgpa' => $req->cgpa, 'email' => $req->email]);
+			$updatedStudents = $this->updateStudentlist($students);
+			return view('home.stdlist')->with('students', $updatedStudents);
+		}else{
+			return view('home.create');
+		} 	
     }
 
     public function edit(){
@@ -74,14 +91,12 @@ class homeController extends Controller
 
     private function getStudentlist(){
 
-    	return [
-    		['id'=> 1, 'name'=> 'alamin', 'cgpa'=>1.2, 'email'=> 'alamin@aiub.edu'],
-    		['id'=> 2, 'name'=> 'CYZ', 'cgpa'=>2.2, 'email'=> 'CYZ@aiub.edu'],
-    		['id'=> 3, 'name'=> 'XYZ', 'cgpa'=>3.2, 'email'=> 'XYZ@aiub.edu'],
-    		['id'=> 4, 'name'=> 'ABC', 'cgpa'=>3.4, 'email'=> 'ABC@aiub.edu'],
-    		['id'=> 5, 'name'=> 'PQE', 'cgpa'=>3.6, 'email'=> 'PQE@aiub.edu'],
-    		['id'=> 6, 'name'=> 'PQR', 'cgpa'=>4, 'email'=> 'PQR@aiub.edu'],
-    		['id'=> 7, 'name'=> 'asd', 'cgpa'=>2.5, 'email'=> 'asd@aiub.edu']
-    	];
+    	return $this->studentList;
+	}
+	
+	private function updateStudentlist($students){
+
+		$this->studentList = $students;
+		return $this->studentList;
     }
 }
