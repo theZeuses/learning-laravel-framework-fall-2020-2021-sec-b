@@ -69,14 +69,24 @@ class homeController extends Controller
 		} 	
     }
 
-    public function edit(){
-    	
-    	//return view('home.stdlist');
+    public function edit($id){   	
+		$student = $this->findStudentById($id);
+		return view('home.edit')->with('student',$student[0]);
     }
 
-    public function update(){
+    public function update(Request $req, $id){
     	
-    	//return view('home.stdlist');
+    	if(strlen($req->name) != 0 && strlen($req->cgpa) != 0 && strlen($req->email) != 0){
+			$students = $this->getStudentlist();
+			$index = $this->findStudentIndexById($id);
+			$students[$index]['name'] = $req->name;
+			$students[$index]['cgpa'] = $req->cgpa;
+			$students[$index]['email'] = $req->email;
+			return view('home.stdlist')->with('students', $students);
+		}else{
+			$student = $this->findStudentById($id);
+			return view('home.edit')->with('student',$student[0]);
+		} 
     }
 
     public function delete(){
@@ -98,5 +108,23 @@ class homeController extends Controller
 
 		$this->studentList = $students;
 		return $this->studentList;
+	}
+	
+	private function findStudentById($id){
+		$students = $this->getStudentlist();
+		array_filter($students, function($value, $key) use($id){
+			return $key == 'id' && $value == $id;
+		}, ARRAY_FILTER_USE_BOTH);
+		return $students;
+	}
+	
+	private function findStudentIndexById($id){
+		$students = $this->getStudentlist();
+		for($i = 0; $i < count($students); $i++){
+			if($students[$i]['id'] == $id){
+				return $i;
+			}
+		}
+		return -1;
     }
 }

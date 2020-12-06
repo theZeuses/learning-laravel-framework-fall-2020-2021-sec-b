@@ -16,7 +16,7 @@
 			</tr>
 			<tr>
 				<td>CGPA</td>
-				<td><input type="number" name="cgpa"></td>
+				<td><input type="text" name="cgpa"></td>
 			</tr>
             <tr>
 				<td>Email</td>
