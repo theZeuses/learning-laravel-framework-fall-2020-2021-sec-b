@@ -83,21 +83,26 @@ class homeController extends Controller
 			$students[$index]['name'] = $req->name;
 			$students[$index]['cgpa'] = $req->cgpa;
 			$students[$index]['email'] = $req->email;
-			return view('home.stdlist')->with('students', $students);
+			$updatedStudents = $this->updateStudentlist($students);
+			return view('home.stdlist')->with('students', $updatedStudents);
 		}else{
 			$student = $this->findStudentById($id);
 			return view('home.edit')->with('student',$student[0]);
 		} 
     }
 
-    public function delete(){
+    public function delete($id){
     	
-    	//return view('home.stdlist');
+    	$student = $this->findStudentById($id);
+		return view('home.delete')->with('student',$student[0]);
     }
 
-    public function destroy(){
-    	
-    	//return view('home.stdlist');
+    public function destroy($id){
+		$students = $this->getStudentlist();
+		$index = $this->findStudentIndexById($id);
+		array_splice($students, $index, 1);
+		$updatedStudents = $this->updateStudentlist($students);
+		return view('home.stdlist')->with('students', $updatedStudents);
     }
 
     private function getStudentlist(){
