@@ -28,8 +28,7 @@
 				<td>{{$employers[$i]['contactno']}}</td>
 				<td>
 					<a href="{{route('employer.edit', $employers[$i]['id'])}}">Edit </a> |
-					<a href="{{route('employer.list', $employers[$i]['id'])}}">Details </a> |
-					<a href="{{route('employer.delete', $employers[$i]['id'])}}">Delete </a> 
+						<a href="{{route('employer.delete', $employers[$i]['id'])}}">Delete </a> 
 				</td>
 			</tr>
 

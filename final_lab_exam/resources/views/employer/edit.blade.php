@@ -25,15 +25,15 @@
 				</tr>
 				<tr>
 					<td>Employer Name</td>
-					<td><input type="text" name="name" value="{{$employername}}"></td>
+					<td><input type="text" name="employername" value="{{$employername}}"></td>
 				</tr>
 				<tr>
 					<td>Company Name</td>
-					<td><input type="text" name="cgpa" value="{{$companyname}}"></td>
+					<td><input type="text" name="companyname" value="{{$companyname}}"></td>
 				</tr>
 				<tr>
 					<td>Contact No</td>
-					<td><input type="text" name="dept" value="{{$contactno}}"></td>
+					<td><input type="text" name="contactno" value="{{$contactno}}"></td>
 				</tr>
 				<tr>
 					<td>type</td>
@@ -46,5 +46,8 @@
 			</table>
 			</fieldset>
 		</form>
+		@foreach($errors->all() as $err)
+			<div style="color: red">{{$err}} </div> <br>
+		@endforeach
 </body>
 </html>

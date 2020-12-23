@@ -70,11 +70,15 @@ class adminController extends Controller
     	return redirect()->route('employer.list');
     }
 
-    public function deleteEmployer(){
-
+    public function deleteEmployer($id){
+    	$employer = Employer::find($id)->first();
+    	return view('employer.delete', ['name'=>$employer->employername]);
     }
 
-    public function removeEmployer(){
+    public function removeEmployer($id){
+    	$employer = Employer::find($id);
+    	$employer->delete();
 
+    	return redirect()->route('employer.list');
     }
 }
