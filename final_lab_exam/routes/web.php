@@ -28,6 +28,10 @@ Route::group(['middleware'=>['sess']], function(){
 		Route::get('/admin/employer/add', 'adminController@addEmployer')->name('employer.add');
 		Route::post('/admin/employer/add', 'adminController@storeEmployer');
 		Route::get('/admin/employer/list', 'adminController@listEmployer')->name('employer.list');
+		Route::get('/admin/employer/edit/{id}', 'adminController@editEmployer')->name('employer.edit');
+		Route::post('/admin/employer/edit/{id}', 'adminController@updateEmployer');
+		Route::get('/admin/employer/delete/{id}', 'adminController@deleteEmployer')->name('employer.delete');
+		Route::post('/admin/employer/delete/{id}', 'adminController@removeEmployer');
 	});
 	Route::group(['middleware'=>['employer']], function(){
 		Route::get('/employer', 'employerController@home')->name('employer.home');

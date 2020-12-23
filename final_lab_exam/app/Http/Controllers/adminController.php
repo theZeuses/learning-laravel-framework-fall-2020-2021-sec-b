@@ -38,6 +38,43 @@ class adminController extends Controller
     }
 
     public function listEmployer(){
-    	return view('employer.list');
+    	$employers = Employer::all();
+    	return view('employer.list',['employers'=>$employers]);
+    }
+
+    public function editEmployer($id){
+    	$employer = Employer::find($id);
+    	$user = User::where('username', $employer->username)->first();
+    	$employer->password = $user->password;
+    	return view('employer.edit', $employer);
+    }
+
+    public function updateEmployer(EmployerRequest $req, $id){
+    	$employer = Employer::find($id);
+
+    	$user = User::where('username', $employer->username)->first();
+
+    	$user->username = $req->username;
+    	$user->password = $req->password;
+    	$user->type = $req->type;
+
+    	$employer->employername = $req->employername;
+    	$employer->companyname = $req->companyname;
+    	$employer->contactno = $req->contactno;
+    	$employer->username = $req->username;
+    	$employer->type = $req->type;
+
+    	$user->save();
+    	$employer->save();
+
+    	return redirect()->route('employer.list');
+    }
+
+    public function deleteEmployer(){
+
+    }
+
+    public function removeEmployer(){
+
     }
 }
