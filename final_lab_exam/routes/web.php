@@ -24,9 +24,10 @@ Route::get('/logout', 'logoutController@index');
 
 Route::group(['middleware'=>['sess']], function(){
 	Route::group(['middleware'=>['admin']], function(){
-
-	}
+		Route::get('/admin', 'adminController@home')->name('admin.home');
+		Route::get('/admin/employer/add', 'adminController@addEmployer')->name('employer.add');
+	});
 	Route::group(['middleware'=>['employer']], function(){
-
-	}
-}
+		Route::get('/employer', 'employerController@home')->name('employer.home');
+	});
+});
