@@ -14,5 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
+
+Route::get('/login', 'loginController@index');
+Route::post('/login', 'loginController@verify');
+Route::get('/logout', 'logoutController@index');
+
+
+Route::group(['middleware'=>['sess']], function(){
+	Route::group(['middleware'=>['admin']], function(){
+
+	}
+	Route::group(['middleware'=>['employer']], function(){
+
+	}
+}

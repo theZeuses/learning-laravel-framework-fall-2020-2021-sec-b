@@ -16,6 +16,10 @@ class employer
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if($request->session()->get('type') == 'employer'){
+            return $next($request);
+        }else{
+            return redirect()->route('/login');
+        }
     }
 }
