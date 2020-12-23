@@ -26,6 +26,8 @@ Route::group(['middleware'=>['sess']], function(){
 	Route::group(['middleware'=>['admin']], function(){
 		Route::get('/admin', 'adminController@home')->name('admin.home');
 		Route::get('/admin/employer/add', 'adminController@addEmployer')->name('employer.add');
+		Route::post('/admin/employer/add', 'adminController@storeEmployer');
+		Route::get('/admin/employer/list', 'adminController@listEmployer')->name('employer.list');
 	});
 	Route::group(['middleware'=>['employer']], function(){
 		Route::get('/employer', 'employerController@home')->name('employer.home');

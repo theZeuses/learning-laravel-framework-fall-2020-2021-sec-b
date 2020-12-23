@@ -48,7 +48,7 @@
 		</form>
 
 		@foreach($errors->all() as $err)
-			{{$err}} <br>
+			<div style="color: red">{{$err}} </div> <br>
 		@endforeach
 </body>
 </html>
